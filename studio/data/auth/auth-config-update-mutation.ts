@@ -9,7 +9,7 @@ import { authKeys } from './keys'
 
 export type AuthConfigUpdateVariables = {
   projectRef: string
-  config: components['schemas']['UpdateGoTrueConfigBody']
+  config: Partial<components['schemas']['UpdateGoTrueConfigBody']>
 }
 
 export type UpdateAuthConfigResponse = components['schemas']['GoTrueConfig']
