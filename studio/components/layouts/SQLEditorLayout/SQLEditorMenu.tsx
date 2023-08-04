@@ -100,8 +100,8 @@ const SideBarContent = observer(() => {
       const data = { ...snippet, id: uuidv4() }
 
       snap.addSnippet(data as SqlSnippet, ref, true)
-
       router.push(`/project/${ref}/sql/${data.id}`)
+
       // reset all search inputs when a new query is added
       setPersonalSnippetsFilterString('')
       setProjectSnippetsFilterString('')

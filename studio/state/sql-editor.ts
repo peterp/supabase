@@ -230,6 +230,8 @@ if (typeof window !== 'undefined') {
   subscribe(sqlEditorState.needsSaving, () => {
     const state = getSqlEditorStateSnapshot()
 
+    console.log('SUBSCRIPTION')
+
     Array.from(state.needsSaving)
       .filter((id) => !state.needsCreating.has(id))
       .forEach((id) => {
