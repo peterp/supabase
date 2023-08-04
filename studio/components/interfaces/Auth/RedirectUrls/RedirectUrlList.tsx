@@ -1,11 +1,12 @@
-import { FC } from 'react'
 import { observer } from 'mobx-react-lite'
+import { FC } from 'react'
 import { Button, IconGlobe, IconTrash } from 'ui'
 
-import { useStore } from 'hooks'
-import ValueContainer from './ValueContainer'
-import { EmptyListState } from 'components/ui/States'
+import { useParams } from 'common'
 import { HorizontalShimmerWithIcon } from 'components/ui/Shimmers'
+import { EmptyListState } from 'components/ui/States'
+import { useAuthConfigQuery } from 'data/auth/auth-config-query'
+import ValueContainer from './ValueContainer'
 
 interface Props {
   canUpdate: boolean
@@ -13,15 +14,14 @@ interface Props {
 }
 
 const RedirectUrlList: FC<Props> = ({ canUpdate, onSelectUrlToDelete }) => {
-  const { authConfig } = useStore()
+  const { ref: projectRef } = useParams()
+  const { data: config, isFetched: isLoaded } = useAuthConfigQuery({ projectRef })
 
-  const URI_ALLOW_LIST_ARRAY = authConfig.config.URI_ALLOW_LIST
-    ? authConfig.config.URI_ALLOW_LIST.split(',')
-    : []
+  const URI_ALLOW_LIST_ARRAY = config?.URI_ALLOW_LIST ? config.URI_ALLOW_LIST.split(',') : []
 
   return (
     <div className="-space-y-px">
-      {!authConfig.isLoaded ? (
+      {!isLoaded ? (
         <>
           <ValueContainer>
             <HorizontalShimmerWithIcon />
